@@ -1,9 +1,12 @@
 package com.flashvisions.client.mobile.android.red5.red5rools.view 
 {
 	import com.flashvisions.client.mobile.android.red5.red5rools.Application;
+	import com.flashvisions.client.mobile.android.red5.red5rools.ApplicationFacade;
+	import com.flashvisions.client.mobile.android.red5.red5rools.model.DataProxy;
 	import com.flashvisions.client.mobile.android.red5.red5rools.Ports;
 	import com.flashvisions.client.mobile.android.red5.red5rools.Protocols;
 	import com.flashvisions.client.mobile.android.red5.red5rools.Screens;
+	import com.flashvisions.client.mobile.android.red5.red5rools.Utils;
 	import feathers.data.ListCollection;
 	import org.puremvc.as3.interfaces.IMediator;
 	import org.puremvc.as3.interfaces.INotification;
@@ -54,8 +57,10 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 		private var _component:PortTestScreen;
 		private var collection:ListCollection;
 		
+		private var _dataProxy:DataProxy;
+		private var _provider:ConnectionProvider;
 		
-		
+		private var connections:Vector.<SmartConnection>;
 		
 		public function PortTestScreenMediator(viewComponent:Object=null) 
 		{
@@ -100,6 +105,10 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 			this._component.btnRunTest.addEventListener(Event.TRIGGERED, onRunTest);
 			
 			
+			this._dataProxy = facade.retrieveProxy(DataProxy.NAME) as DataProxy;
+			this._provider = this._dataProxy.connectionProvider;
+			
+			
 			// init data
 			this.collection = new ListCollection();
 			
@@ -116,6 +125,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 			collection.addItem( { 'label': 'RTMPT @ 5080	' , 'status': 'UNKNOWN', 'port': Ports._5080, 'protocol': Protocols.RTMPT } );
 			
 			
+			this.connections = new Vector.<SmartConnection>();
+			
+			
 			this._component.list.dataProvider = collection;
 			this._component.list.itemRendererProperties.labelField = 'label';
 			this._component.list.itemRendererProperties.accessoryLabelField = 'status';
@@ -124,7 +136,12 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 		
 		override public function onRemove():void 
 		{
+			this._component.btnRunTest.removeEventListener(Event.TRIGGERED, onRunTest);
 			
+			this.collection.removeAll();
+			this.collection = null;
+			
+			this.connections = null;
 		}
 		
 		
@@ -133,6 +150,24 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 			this._component.btnRunTest.isEnabled = false;
 			
 			// start test here
+			var config:ConnectionConfig = _component.connectionConfig;
+			
+			for (var i:uint = 0; i < this.collection.length; i++)
+			{
+				var obj:Object = this.collection[i];
+				var connection:SmartConnection = this._provider.newConnection();
+				
+				config.protocol = obj.protocol;
+				config.port = obj.port;
+				
+				connection.url = Utils.getConnectionURL(config);
+				logger.info("building connection for : ", [connection.url]);
+				
+				connections.push(connection);
+			}
+			
+			
+			facade.sendNotification(ApplicationFacade.PORT_TEST, connections);
 		}
 		
 	}

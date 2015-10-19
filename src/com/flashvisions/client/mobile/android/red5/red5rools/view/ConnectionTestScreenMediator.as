@@ -161,7 +161,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 			
 			this._dataProxy = facade.retrieveProxy(DataProxy.NAME) as DataProxy;
 			this._provider = this._dataProxy.connectionProvider;
-			this._cookie = this._dataProxy.cookie;
 		}
 		
 		
@@ -170,7 +169,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 		override public function onRemove():void 
 		{
 			this._component.btnTestConnection.removeEventListener(Event.TRIGGERED, onRunTest);
-			this._cookie = null;
 			
 			
 			if (_connection)

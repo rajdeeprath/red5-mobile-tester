@@ -56,6 +56,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools
 			
 			this.registerCommand(STARTUP,StartupCommand);
 			this.registerCommand(CONNECTION_TEST, SimpleConnectionTestCommand);
+			this.registerCommand(PORT_TEST, PortTestCommand);
 		}
 		
 		
