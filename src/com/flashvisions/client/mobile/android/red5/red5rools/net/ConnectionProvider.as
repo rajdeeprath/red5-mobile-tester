@@ -121,37 +121,37 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 		
 		private function onConnectionSuccess(e:ConnectionEvent):void
 		{
-			//this.dispatchEvent(new ConnectionAdapterEvent(e));
+			
 		}
 		
 		
 		private function onConnectionTimeout(e:ConnectionEvent):void
 		{
-			//this.dispatchEvent(new ConnectionAdapterEvent(e));
+			
 		}
 		
 		
 		private function onConnectionError(e:ConnectionEvent):void
 		{
-			//this.dispatchEvent(new ConnectionAdapterEvent(e));
+			
 		}
 		
 		
 		private function onConnectionClosed(e:ConnectionEvent):void
 		{
-			//this.dispatchEvent(new ConnectionAdapterEvent(e));
+			
 		}
 		
 		
 		private function onConnectionLost(e:ConnectionEvent):void
 		{
-			//this.dispatchEvent(new ConnectionAdapterEvent(e));
+			
 		}
 		
 		
 		private function onConnectionAsyncError(e:ConnectionEvent):void
 		{
-			//this.dispatchEvent(new ConnectionAdapterEvent(e));
+			
 		}
 		
 		

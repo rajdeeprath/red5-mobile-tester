@@ -80,6 +80,13 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 		
 		
 		
+		public function get netconnection():NetConnection
+		{
+			return _nc;
+		}
+		
+		
+		
 		
 		public function close():void
 		{
@@ -97,6 +104,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 			_isConnecting = false;
 			
 			_unmonitortimeout();
+			
+			
+			if(_nc)
 			_nc.close();
 		}
 		
@@ -109,11 +119,18 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 			try
 			{
 				this.close();
+								
 				_deInitHandlers();
+				
+				var info:ConnectionInfo = new ConnectionInfo();
+				info.status = NetConnectionCodes.CONNECT_DISPOSE;
+				info.endpoint = url;
+				info.timestamp = parseInt(new Date().valueOf().toString());
+				dispatchEvent(new ConnectionEvent(ConnectionEvent.CONNECTION_DISPOSE, info));
 			}
 			catch (e:Error) 
 			{
-				
+				// NO OP - IGNORE
 			}
 			finally 
 			{

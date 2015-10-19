@@ -55,5 +55,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 		
 		
 		public static const CONNECT_SECURITY_ERROR:String = "NetConnection.Connect.SecurityError";
+		
+		
+		
+		public static const CONNECT_DISPOSE:String = "NetConnection.Dispose";
 	}
 }

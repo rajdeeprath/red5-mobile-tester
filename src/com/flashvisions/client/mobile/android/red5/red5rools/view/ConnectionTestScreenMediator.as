@@ -54,7 +54,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 		
 		private var _component:ConnectionTestScreen;
 		private var _connection:SmartConnection;
-		private var _cookie:Cookie;
 		
 		private var _dataProxy:DataProxy;
 		private var _provider:ConnectionProvider;
@@ -114,8 +113,10 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 				
 				
 				case ApplicationFacade.CONNECTION_CLOSED:
+				_connection = notification.getBody() as SmartConnection;
 				_connection.dispose();
 				_connection = null;
+				
 				_component.btnTestConnection.label = "CONNECT";
 				break;
 				
@@ -169,11 +170,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 		override public function onRemove():void 
 		{
 			this._component.btnTestConnection.removeEventListener(Event.TRIGGERED, onRunTest);
+			this._provider.purgeConnections();
 			
-			
-			if (_connection)
-			_connection.dispose();			
-			_connection = null
+			this._connection = null;
 			
 			this._dataProxy.connectionProvider.purgeConnections();
 			this._dataProxy = null;

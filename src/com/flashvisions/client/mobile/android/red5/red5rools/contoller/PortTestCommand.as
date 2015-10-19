@@ -72,17 +72,30 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			connection.addEventListener(ConnectionEvent.CONNECTION_TIMEOUT, onConnectionTimeout);
 			connection.addEventListener(ConnectionEvent.CONNECTION_CLOSED, onConnectionClosed);
 			connection.addEventListener(ConnectionEvent.CONNECTION_ABORT, onConnectionAbort);
+			connection.addEventListener(ConnectionEvent.CONNECTION_DISPOSE, onConnectionDispose);
 		}
 		
 		
 		
 		private function deInitListeners(connection:SmartConnection):void
 		{
+			if(connection.hasEventListener(ConnectionEvent.CONNECTION_SUCCESS))
 			connection.removeEventListener (ConnectionEvent.CONNECTION_SUCCESS, onConnectionSuccess);
+			
+			if(connection.hasEventListener(ConnectionEvent.CONNECTION_ERROR))
 			connection.removeEventListener(ConnectionEvent.CONNECTION_ERROR, onConnectionError);
+			
+			if(connection.hasEventListener(ConnectionEvent.CONNECTION_TIMEOUT))
 			connection.removeEventListener(ConnectionEvent.CONNECTION_TIMEOUT, onConnectionTimeout);
+						
+			if(connection.hasEventListener(ConnectionEvent.CONNECTION_CLOSED))
 			connection.removeEventListener(ConnectionEvent.CONNECTION_CLOSED, onConnectionClosed);
+						
+			if(connection.hasEventListener(ConnectionEvent.CONNECTION_ABORT))
 			connection.removeEventListener(ConnectionEvent.CONNECTION_ABORT, onConnectionAbort);
+						
+			if(connection.hasEventListener(ConnectionEvent.CONNECTION_DISPOSE))
+			connection.removeEventListener(ConnectionEvent.CONNECTION_DISPOSE, onConnectionDispose);
 		}
 		
 		
@@ -96,12 +109,19 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		
 		
 		
+		private function onConnectionDispose(e:ConnectionEvent):void 
+		{
+			logger.info("onConnectionDispose {0}", [e.target]); 
+			deInitListeners(e.target as SmartConnection);
+		}
+		
+		
+		
+		
 		
 		private function onConnectionClosed(e:ConnectionEvent):void 
 		{
-			logger.info("onConnectionClosed {0}", [e.target]); 
-			deInitListeners(e.target as SmartConnection);
-			
+			logger.info("onConnectionClosed {0}", [e.target]); 			
 			facade.sendNotification(ApplicationFacade.CONNECTION_CLOSED, e.target as SmartConnection);
 		}
 		
@@ -111,9 +131,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		
 		private function onConnectionTimeout(e:ConnectionEvent):void 
 		{
-			logger.info("onConnectionTimeout {0}", [e.target]); 
-			deInitListeners(e.target as SmartConnection);
-			
+			logger.info("onConnectionTimeout {0}", [e.target]);			
 			facade.sendNotification(ApplicationFacade.CONNECTION_TIMEOUT, e.target as SmartConnection);
 		}
 		
@@ -123,9 +141,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		
 		private function onConnectionError(e:ConnectionEvent):void 
 		{
-			logger.info("onConnectionError {0}", [e.target]); 
-			deInitListeners(e.target as SmartConnection);
-			
+			logger.info("onConnectionError {0}", [e.target]); 			
 			facade.sendNotification(ApplicationFacade.CONNECTION_ERROR, e.target as SmartConnection);
 		}
 		
@@ -136,7 +152,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		private function onConnectionSuccess(e:ConnectionEvent):void 
 		{
 			logger.info("onConnectionSuccess {0}", [e.target]); 
-			
 			facade.sendNotification(ApplicationFacade.CONNECTION_SUCCESS, e.target as SmartConnection);
 		}
 	}

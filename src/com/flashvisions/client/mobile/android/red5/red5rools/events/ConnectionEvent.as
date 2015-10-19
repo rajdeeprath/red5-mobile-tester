@@ -21,6 +21,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.events
 
 		public static const CONNECTION_ABORT:String 	= "CONNECTION_ABORT";
 		
+		public static const CONNECTION_DISPOSE:String 	= "CONNECTION_DISPOSE";
+		
 		
 		
 		/**

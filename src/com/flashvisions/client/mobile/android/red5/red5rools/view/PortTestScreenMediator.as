@@ -137,7 +137,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 				protocol = obj.protocol;
 				port = obj.port;
 				
-				//logger.info("port {0} : protocol {1} : url {2}}", [port, protocol, connection.url]);
 				
 				
 				if (connection.port == port && connection.protocol == protocol)

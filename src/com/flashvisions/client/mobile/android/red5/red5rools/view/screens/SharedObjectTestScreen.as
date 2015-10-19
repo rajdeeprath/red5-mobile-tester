@@ -7,6 +7,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 	import feathers.controls.IScreen;
 	import feathers.controls.LayoutGroup;
 	import feathers.controls.PanelScreen;
+	import feathers.controls.ScrollText;
 	import feathers.controls.text.StageTextTextEditor;
 	import feathers.controls.TextInput;
 	import feathers.controls.ToggleButton;
@@ -15,6 +16,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 	import feathers.layout.HorizontalLayoutData;
 	import feathers.layout.VerticalLayout;
 	import feathers.layout.VerticalLayoutData;
+	import flash.text.TextFormat;
 	import starling.events.Event;
 	
 	CONFIG::LOGGING
@@ -47,7 +49,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 		private var btnSendText:Button;
 		private var txtSoData:TextInput;
 		
-		private var txtOutput:TextInput;
+		private var txtOutput:ScrollText;
 		
 		private var containerGroup1:LayoutGroup;
 		private var containerGroup2:LayoutGroup
@@ -200,19 +202,12 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			fillLayoutData.percentWidth = 90;
 			
 			
-			txtOutput = new TextInput();
-			txtOutput.isEditable = false;
-			txtOutput.layoutData = fillLayoutData;
-			txtOutput.textEditorFactory = function():ITextEditor
-			{
-				var editor:StageTextTextEditor = new StageTextTextEditor();
-				editor.fontFamily = "Helvetica";
-				editor.fontSize = 14;
-				editor.multiline = true;
-				editor.color = 0xffffff;
-				return editor;
-			}
 			
+			txtOutput = new ScrollText();
+			txtOutput.backgroundColor = 0x000000;
+			txtOutput.background = true;
+			txtOutput.layoutData = fillLayoutData;
+			txtOutput.textFormat = new TextFormat("Helvetica", 14, 0xffffff);
 			addChild(txtOutput);
 		}
 		

@@ -7,24 +7,26 @@ package com.flashvisions.client.mobile.android.red5.red5rools
 	
 	public class ApplicationFacade extends Facade implements IFacade
 	{
-		public static const STARTUP:String  = "STARTUP";
-		public static const READY:String  = "READY";
-		public static const FAULT:String  = "FAULT";
+		public static const STARTUP:String  				= "STARTUP";
+		public static const READY:String  					= "READY";
+		public static const FAULT:String  					= "FAULT";
 		
-		public static const CONNECTION_TEST:String  = "CONNECTION_TEST";
-		public static const PORT_TEST:String  = "PORT_TEST";
+		public static const CONNECTION_TEST:String  		= "CONNECTION_TEST";
+		public static const PORT_TEST:String  				= "PORT_TEST";
+		public static const BANDWIDTH_TEST:String  			= "BANDWIDTH_TEST";
 		
-		public static const TEST_START:String  = "TEST_START";
-		public static const TEST_COMPLETE:String  = "TEST_COMPLETE";
+		public static const TEST_START:String  				= "TEST_START";
+		public static const TEST_COMPLETE:String  			= "TEST_COMPLETE";
 		
-		public static const LOG:String  = "LOG";
+		public static const LOG:String  					= "LOG";
 		
 		
-		public static const CONNECTION_SUCCESS:String  = "CONNECTION_SUCCESS";
-		public static const CONNECTION_ERROR:String  = "CONNECTION_ERROR";
-		public static const CONNECTION_TIMEOUT:String  = "CONNECTION_TIMEOUT";
-		public static const CONNECTION_LOST:String  = "CONNECTION_LOST";
-		public static const CONNECTION_CLOSED:String  = "CONNECTION_CLOSED";
+		public static const CONNECTION_SUCCESS:String  		= "CONNECTION_SUCCESS";
+		public static const CONNECTION_ERROR:String  		= "CONNECTION_ERROR";
+		public static const CONNECTION_TIMEOUT:String  		= "CONNECTION_TIMEOUT";
+		public static const CONNECTION_LOST:String  		= "CONNECTION_LOST";
+		public static const CONNECTION_CLOSED:String  		= "CONNECTION_CLOSED";
+		public static const CONNECTION_DISPOSE:String  		= "CONNECTION_DISPOSE";
 		
 		
 		
@@ -55,8 +57,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools
 			super.initializeController();
 			
 			this.registerCommand(STARTUP,StartupCommand);
-			this.registerCommand(CONNECTION_TEST, SimpleConnectionTestCommand);
+			this.registerCommand(CONNECTION_TEST, ConnectionCommand);
 			this.registerCommand(PORT_TEST, PortTestCommand);
+			this.registerCommand(BANDWIDTH_TEST, BandwidthTestCommand);
 		}
 		
 		

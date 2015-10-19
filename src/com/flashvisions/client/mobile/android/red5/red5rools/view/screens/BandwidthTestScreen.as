@@ -6,11 +6,15 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 	import feathers.controls.Button;
 	import feathers.controls.IScreen;
 	import feathers.controls.PanelScreen;
+	import feathers.controls.ScrollBar;
+	import feathers.controls.ScrollText;
 	import feathers.controls.text.StageTextTextEditor;
+	import feathers.controls.TextArea;
 	import feathers.controls.TextInput;
 	import feathers.core.ITextEditor;
 	import feathers.layout.VerticalLayout;
 	import feathers.layout.VerticalLayoutData;
+	import flash.text.TextFormat;
 	import starling.events.Event;
 	
 	
@@ -37,7 +41,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 		
 		
 		public var btnRunTest:Button;
-		public var txtOutput:TextInput;
+		public var txtOutput:ScrollText;
 		
 		
 		public function BandwidthTestScreen() 
@@ -112,19 +116,11 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			
 			
 			
-			txtOutput = new TextInput();
-			txtOutput.isEditable = false;
+			txtOutput = new ScrollText();
+			txtOutput.backgroundColor = 0x000000;
+			txtOutput.background = true;
 			txtOutput.layoutData = masterLayoutData;
-			txtOutput.textEditorFactory = function():ITextEditor
-			{
-				var editor:StageTextTextEditor = new StageTextTextEditor();
-				editor.fontFamily = "Helvetica";
-				editor.fontSize = 14;
-				editor.multiline = true;
-				editor.color = 0xffffff;
-				return editor;
-			}
-			
+			txtOutput.textFormat = new TextFormat("Helvetica", 14, 0xffffff);
 			addChild(txtOutput);
 		}
 		

@@ -175,6 +175,14 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 			var navItem:StackScreenNavigatorItem = null;
 			var config:ConnectionConfig = new ConnectionConfig(data.host, data.port, data.app);
 			
+			this._cookie.host = config.host;
+			this._cookie.port = config.port;
+			this._cookie.app = config.app;
+			this._cookie.save();
+			
+			logger.info("config {0}", [JSON.stringify(config)]);
+			
+			
 			switch(data.screen)
 			{
 				case Screens.CONNECTION_TEST:
@@ -193,13 +201,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 				navItem = _soTestScreen;
 				break;
 			}
-			
-			
-			
-			this._cookie.host = config.host;
-			this._cookie.port = config.port;
-			this._cookie.app = config.app;
-			this._cookie.save();
 			
 			
 			navItem.properties.connectionConfig = config;
