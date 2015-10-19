@@ -19,6 +19,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 	{
 		private var _nc:NetConnection;
 		private var _protocol:String;
+		private var _port:String;
 		private var _url:String;
 		
 		
@@ -29,6 +30,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 		private var _connectionTimer:uint;
 		private var _client:Object;
 		
+		private var _resource:URL;
 		
 		
 		public function SmartConnection() 
@@ -192,10 +194,11 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 		
 		public function set url(value:String):void 
 		{
-			_url = value;
+			_resource = new URL(value);
+			_protocol = _resource.protocol;
+			_port = _resource.port;
+			_url = _resource.rawUrl;
 		}
-		
-		
 		
 		
 		
@@ -238,6 +241,26 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 		public function set client(value:Object):void 
 		{
 			_client = value;
+		}
+		
+		
+		
+		
+		
+		
+		public function get port():String 
+		{
+			return _port;
+		}
+		
+		
+		
+		
+		
+		
+		public function get isConnecting():Boolean 
+		{
+			return _isConnecting;
 		}
 		
 		

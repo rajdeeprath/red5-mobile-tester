@@ -18,7 +18,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools
 		{
 			var url:String = null;
 			
-			if(config.port == "" || config.port != null)
+			
+			if(config.port == "" || config.port == null)
 			url = config.protocol + "://" + config.host + "/" + config.app;
 			else
 			url = config.protocol + "://" + config.host + ":" + config.port + "/" + config.app;

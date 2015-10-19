@@ -41,8 +41,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		
 		
 		private var connections:Vector.<SmartConnection>;
-		private static const BATCH_SIZE:uint = 2;
-	
+		private var index:uint = 0;
 		
 		
 		
@@ -52,12 +51,17 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		{	
 			logger.info("Starting test");
 			
-			connections = notification.getBody() as Vector.<SmartConnection>;
-			connections = connections.reverse();
+			
+			var connection:SmartConnection = notification.getBody() as SmartConnection;
+			var dataProxy:DataProxy = facade.retrieveProxy(DataProxy.NAME) as DataProxy;
+			
+			
+			facade.sendNotification(ApplicationFacade.TEST_START, connection);			
+			initListeners(connection);
+			
+			connection.connect();
 		}
 
-		
-		
 		
 		
 		
@@ -66,15 +70,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			connection.addEventListener(ConnectionEvent.CONNECTION_SUCCESS, onConnectionSuccess);
 			connection.addEventListener(ConnectionEvent.CONNECTION_ERROR, onConnectionError);
 			connection.addEventListener(ConnectionEvent.CONNECTION_TIMEOUT, onConnectionTimeout);
-			connection.addEventListener(ConnectionEvent.CONNECTION_LOST, onConnectionLost);
 			connection.addEventListener(ConnectionEvent.CONNECTION_CLOSED, onConnectionClosed);
 			connection.addEventListener(ConnectionEvent.CONNECTION_ABORT, onConnectionAbort);
 		}
-		
-		
-		
-		
-		
 		
 		
 		
@@ -83,7 +81,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			connection.removeEventListener (ConnectionEvent.CONNECTION_SUCCESS, onConnectionSuccess);
 			connection.removeEventListener(ConnectionEvent.CONNECTION_ERROR, onConnectionError);
 			connection.removeEventListener(ConnectionEvent.CONNECTION_TIMEOUT, onConnectionTimeout);
-			connection.removeEventListener(ConnectionEvent.CONNECTION_LOST, onConnectionLost);
 			connection.removeEventListener(ConnectionEvent.CONNECTION_CLOSED, onConnectionClosed);
 			connection.removeEventListener(ConnectionEvent.CONNECTION_ABORT, onConnectionAbort);
 		}
@@ -112,21 +109,10 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		
 		
 		
-		private function onConnectionLost(e:ConnectionEvent):void 
-		{
-			logger.info("onConnectionLost {0}", [e.target]); 
-			
-			
-			facade.sendNotification(ApplicationFacade.CONNECTION_LOST, e.target as SmartConnection);
-		}
-		
-		
-		
-		
-		
 		private function onConnectionTimeout(e:ConnectionEvent):void 
 		{
 			logger.info("onConnectionTimeout {0}", [e.target]); 
+			deInitListeners(e.target as SmartConnection);
 			
 			facade.sendNotification(ApplicationFacade.CONNECTION_TIMEOUT, e.target as SmartConnection);
 		}
@@ -138,6 +124,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		private function onConnectionError(e:ConnectionEvent):void 
 		{
 			logger.info("onConnectionError {0}", [e.target]); 
+			deInitListeners(e.target as SmartConnection);
 			
 			facade.sendNotification(ApplicationFacade.CONNECTION_ERROR, e.target as SmartConnection);
 		}

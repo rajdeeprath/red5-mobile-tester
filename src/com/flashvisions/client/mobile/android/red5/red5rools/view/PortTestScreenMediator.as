@@ -91,13 +91,98 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 		
 		override public function listNotificationInterests():Array 
 		{
-			return [];
+			return [ApplicationFacade.TEST_START, ApplicationFacade.CONNECTION_SUCCESS, ApplicationFacade.CONNECTION_CLOSED, ApplicationFacade.CONNECTION_TIMEOUT, ApplicationFacade.CONNECTION_ERROR, ApplicationFacade.CONNECTION_LOST];
 		}
 		
 		override public function handleNotification(notification:INotification):void 
 		{
+			var connection:SmartConnection;
 			
+			logger.info("Notification {0} : Data {1}", [notification.getName(), notification.getBody()]);
+			
+			
+			switch(notification.getName())
+			{
+				case ApplicationFacade.CONNECTION_SUCCESS:
+				case ApplicationFacade.CONNECTION_CLOSED:
+				case ApplicationFacade.CONNECTION_ERROR:
+				case ApplicationFacade.CONNECTION_TIMEOUT:
+				case ApplicationFacade.CONNECTION_LOST:
+				connection = notification.getBody() as SmartConnection;
+				updateListStatus(connection, notification.getName());
+				
+				testNextPendingConnection();
+				break;
+				
+				
+				
+				case ApplicationFacade.TEST_START:
+				connection = notification.getBody() as SmartConnection;
+				updateListStatus(connection, notification.getName());
+				break;
+			}
 		}
+		
+		
+		
+		
+		private function updateListStatus(connection:SmartConnection, notification:String):void
+		{
+			var protocol:String;
+			var port:String;
+				
+			for (var i:uint = 0; i < this.collection.length; i++)
+			{
+				var obj:Object = this.collection.getItemAt(i);
+				protocol = obj.protocol;
+				port = obj.port;
+				
+				//logger.info("port {0} : protocol {1} : url {2}}", [port, protocol, connection.url]);
+				
+				
+				if (connection.port == port && connection.protocol == protocol)
+				{
+					var status:String;
+					
+					
+					switch(notification)
+					{
+						case ApplicationFacade.CONNECTION_SUCCESS:
+						status = "SUCCESS";
+						break;
+
+
+						case ApplicationFacade.CONNECTION_CLOSED:
+						if(connection.wasConnected)
+						status = "INTERRUPTED";
+						break;
+
+
+						case ApplicationFacade.CONNECTION_ERROR:
+						status = "ERROR";
+						break;
+
+
+						case ApplicationFacade.CONNECTION_TIMEOUT:
+						status = "TIMEOUT";
+						break;
+
+
+
+						case ApplicationFacade.TEST_START:
+						status = "CONNECTING";
+						break;
+					}
+					
+					
+					this.collection.getItemAt(i).status = status;
+					this.collection.updateItemAt(i);
+				}
+			}
+		}
+		
+		
+		
 		
 		override public function onRegister():void 
 		{
@@ -127,7 +212,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 			
 			this.connections = new Vector.<SmartConnection>();
 			
-			
 			this._component.list.dataProvider = collection;
 			this._component.list.itemRendererProperties.labelField = 'label';
 			this._component.list.itemRendererProperties.accessoryLabelField = 'status';
@@ -138,23 +222,47 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 		{
 			this._component.btnRunTest.removeEventListener(Event.TRIGGERED, onRunTest);
 			
+			this.connections.length = 0;
+			
 			this.collection.removeAll();
 			this.collection = null;
 			
-			this.connections = null;
+			this._provider.purgeConnections();
 		}
 		
 		
 		private function onRunTest(e:Event):void
 		{
 			this._component.btnRunTest.isEnabled = false;
-			
-			// start test here
+			this.connections = buildConnections();
+			this.testNextPendingConnection();
+		}
+		
+		
+		
+		private function testNextPendingConnection():void
+		{
+			if (this.connections.length > 0)
+			{
+				var connection:SmartConnection = this.connections.pop();
+				facade.sendNotification(ApplicationFacade.PORT_TEST, connection);
+			}
+			else 
+			{
+				logger.info("No more connections to test");	
+			}
+		}
+		
+		
+		
+		private function buildConnections():Vector.<SmartConnection>
+		{
 			var config:ConnectionConfig = _component.connectionConfig;
+			var connections:Vector.<SmartConnection> = new Vector.<SmartConnection>();
 			
 			for (var i:uint = 0; i < this.collection.length; i++)
 			{
-				var obj:Object = this.collection[i];
+				var obj:Object = this.collection.getItemAt(i);
 				var connection:SmartConnection = this._provider.newConnection();
 				
 				config.protocol = obj.protocol;
@@ -167,7 +275,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 			}
 			
 			
-			facade.sendNotification(ApplicationFacade.PORT_TEST, connections);
+			return connections.reverse();
 		}
 		
 	}
