@@ -1,6 +1,8 @@
 package com.flashvisions.client.mobile.android.red5.red5rools.view 
 {
 	import com.flashvisions.client.mobile.android.red5.red5rools.Application;
+	import com.flashvisions.client.mobile.android.red5.red5rools.Ports;
+	import com.flashvisions.client.mobile.android.red5.red5rools.Protocols;
 	import com.flashvisions.client.mobile.android.red5.red5rools.Screens;
 	import feathers.data.ListCollection;
 	import org.puremvc.as3.interfaces.IMediator;
@@ -95,22 +97,23 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 		override public function onRegister():void 
 		{
 			this._component = this.viewComponent as PortTestScreen;
+			this._component.btnRunTest.addEventListener(Event.TRIGGERED, onRunTest);
 			
 			
 			// init data
+			this.collection = new ListCollection();
 			
-			collection = new ListCollection();
-			collection.addItem( { 'label': 'RTMP @ Default	', 'status': 'UNKNOWN' });
-			collection.addItem( { 'label': 'RTMP @ 1935		' , 'status': 'UNKNOWN' } );
-			collection.addItem( { 'label': 'RTMP @ 443		' , 'status': 'UNKNOWN' } );
-			collection.addItem( { 'label': 'RTMP @ 80		' , 'status': 'UNKNOWN' } );
-			collection.addItem( { 'label': 'RTMP @ 8080		' , 'status': 'UNKNOWN' } );
-			collection.addItem( { 'label': 'RTMPT @ Default	' , 'status': 'UNKNOWN' } );
-			collection.addItem( { 'label': 'RTMPT @ 1935	' , 'status': 'UNKNOWN' } );
-			collection.addItem( { 'label': 'RTMPT @ 443		' , 'status': 'UNKNOWN' } );
-			collection.addItem( { 'label': 'RTMPT @ 80		' , 'status': 'UNKNOWN' } );
-			collection.addItem( { 'label': 'RTMPT @ 8080	' , 'status': 'UNKNOWN' } );
-			collection.addItem( { 'label': 'RTMPT @ 5080	' , 'status': 'UNKNOWN' } );
+			collection.addItem( { 'label': 'RTMP @ Default	', 'status': 'UNKNOWN', 'port': Ports._default, 'protocol': Protocols.RTMP});
+			collection.addItem( { 'label': 'RTMP @ 1935		' , 'status': 'UNKNOWN', 'port': Ports._1935, 'protocol': Protocols.RTMP } );
+			collection.addItem( { 'label': 'RTMP @ 443		' , 'status': 'UNKNOWN', 'port': Ports._443, 'protocol': Protocols.RTMP } );
+			collection.addItem( { 'label': 'RTMP @ 80		' , 'status': 'UNKNOWN', 'port': Ports._80, 'protocol': Protocols.RTMP } );
+			collection.addItem( { 'label': 'RTMP @ 8080		' , 'status': 'UNKNOWN', 'port': Ports._8080, 'protocol': Protocols.RTMP } );
+			collection.addItem( { 'label': 'RTMPT @ Default	' , 'status': 'UNKNOWN', 'port': Ports._default, 'protocol': Protocols.RTMPT } );
+			collection.addItem( { 'label': 'RTMPT @ 1935	' , 'status': 'UNKNOWN', 'port': Ports._1935, 'protocol': Protocols.RTMPT } );
+			collection.addItem( { 'label': 'RTMPT @ 443		' , 'status': 'UNKNOWN', 'port': Ports._443, 'protocol': Protocols.RTMPT } );
+			collection.addItem( { 'label': 'RTMPT @ 80		' , 'status': 'UNKNOWN', 'port': Ports._80, 'protocol': Protocols.RTMPT } );
+			collection.addItem( { 'label': 'RTMPT @ 8080	' , 'status': 'UNKNOWN', 'port': Ports._8080, 'protocol': Protocols.RTMPT } );
+			collection.addItem( { 'label': 'RTMPT @ 5080	' , 'status': 'UNKNOWN', 'port': Ports._5080, 'protocol': Protocols.RTMPT } );
 			
 			
 			this._component.list.dataProvider = collection;
@@ -118,9 +121,18 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 			this._component.list.itemRendererProperties.accessoryLabelField = 'status';
 		}
 		
+		
 		override public function onRemove():void 
 		{
 			
+		}
+		
+		
+		private function onRunTest(e:Event):void
+		{
+			this._component.btnRunTest.isEnabled = false;
+			
+			// start test here
 		}
 		
 	}

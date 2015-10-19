@@ -12,6 +12,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools
 		public static const FAULT:String  = "FAULT";
 		
 		public static const CONNECTION_TEST:String  = "CONNECTION_TEST";
+		public static const PORT_TEST:String  = "PORT_TEST";
 		
 		public static const TEST_START:String  = "TEST_START";
 		public static const TEST_COMPLETE:String  = "TEST_COMPLETE";

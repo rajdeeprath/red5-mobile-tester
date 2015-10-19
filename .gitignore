@@ -9,6 +9,7 @@ Desktop.ini
 $RECYCLE.BIN/
 
 dist/
+*.p12
 
 # Windows Installer files
 *.cab
@@ -43,3 +44,5 @@ dist/
 Network Trash Folder
 Temporary Items
 .apdisk
+bat/SetupApp.bat
+bat/RunApp.bat
