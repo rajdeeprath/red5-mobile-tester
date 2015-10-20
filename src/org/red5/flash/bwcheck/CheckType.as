@@ -1,6 +1,6 @@
 package org.red5.flash.bwcheck
 {
-	public class BWCheckType
+	public class CheckType
 	{
 		public static const SERVER_CLIENT:uint = 0;
 		

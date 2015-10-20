@@ -3,7 +3,7 @@ package org.red5.flash.bwcheck.interfaces
 	import flash.events.IEventDispatcher;
 	import flash.net.NetConnection;
 
-	public interface IConnectionCheck extends IEventDispatcher
+	public interface IDetection extends IEventDispatcher
 	{
 		function get type():uint;
 		function get dirty():Boolean;

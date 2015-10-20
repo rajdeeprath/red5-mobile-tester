@@ -13,10 +13,10 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 	import flash.desktop.SystemIdleMode;
 	import flash.net.Responder;
 	import flash.utils.getTimer;
-	import org.red5.flash.bwcheck.BWCheckType;
+	import org.red5.flash.bwcheck.CheckType;
 	import org.red5.flash.bwcheck.ClientServerBandwidth;
 	import org.red5.flash.bwcheck.events.BandwidthDetectEvent;
-	import org.red5.flash.bwcheck.interfaces.IConnectionCheck;
+	import org.red5.flash.bwcheck.interfaces.IDetection;
 	import org.red5.flash.bwcheck.ServerClientBandwidth;
 	
 	import org.puremvc.as3.interfaces.ICommand;
@@ -48,7 +48,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		private var messsageLogger:MessageLogger;
 		private var connection:SmartConnection;
 		
-		private var checks:Vector.<IConnectionCheck>;
+		private var checks:Vector.<IDetection>;
 		
 		
 		/* INTERFACE org.puremvc.as3.interfaces.ICommand */
@@ -61,7 +61,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			var dataProxy:DataProxy = facade.retrieveProxy(DataProxy.NAME) as DataProxy;
 			connection = notification.getBody() as SmartConnection;
 			
-			checks = new Vector.<IConnectionCheck>();
+			checks = new Vector.<IDetection>();
 			messsageLogger = dataProxy.messageLogger;
 			initListeners(connection);
 			
@@ -76,7 +76,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		{
 			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage("Initializing upload test for {0}", [connection.url]));
 			
-			var check:IConnectionCheck = new ClientServerBandwidth();
+			var check:IDetection = new ClientServerBandwidth();
 			checks.push(check);
 			
 			check.connection = connection.netconnection;
@@ -92,7 +92,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		{
 			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage("Initializing download test for {0}", [connection.url]));
 			
-			var check:IConnectionCheck = new ServerClientBandwidth();
+			var check:IDetection = new ServerClientBandwidth();
 			checks.push(check);
 			
 			check.connection = connection.netconnection;
@@ -104,7 +104,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		
 		
 		
-		private function initCheckListeners(check:IConnectionCheck):void
+		private function initCheckListeners(check:IDetection):void
 		{
 			check.addEventListener(BandwidthDetectEvent.DETECT_STATUS, onBwCheckStatus);
 			check.addEventListener(BandwidthDetectEvent.DETECT_COMPLETE, onBwCheckComplete);
@@ -114,7 +114,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		
 		
 		
-		private function deInitCheckListeners(check:IConnectionCheck):void
+		private function deInitCheckListeners(check:IDetection):void
 		{
 			if(check.hasEventListener(BandwidthDetectEvent.DETECT_STATUS))
 			check.removeEventListener(BandwidthDetectEvent.DETECT_STATUS, onBwCheckStatus);
@@ -132,8 +132,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		
 		private function onBwCheckFailed(e:BandwidthDetectEvent):void 
 		{
-			var check:IConnectionCheck = e.target as IConnectionCheck;
-			var type:String = (check.type == BWCheckType.CLIENT_SERVER)?"UPLOAD":"DOWNLOAD";
+			var check:IDetection = e.target as IDetection;
+			var type:String = (check.type == CheckType.CLIENT_SERVER)?"UPLOAD":"DOWNLOAD";
 			
 			logger.info("onBwCheckFailed {0}", [JSON.stringify(e.info)]);
 			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage(type + " Check failed for {0}", [connection.url]));
@@ -147,8 +147,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		
 		private function onBwCheckComplete(e:BandwidthDetectEvent):void 
 		{
-			var check:IConnectionCheck = e.target as IConnectionCheck;
-			var type:String = (check.type == BWCheckType.CLIENT_SERVER)?"UPLOAD":"DOWNLOAD";
+			var check:IDetection = e.target as IDetection;
+			var type:String = (check.type == CheckType.CLIENT_SERVER)?"UPLOAD":"DOWNLOAD";
 			
 			logger.info("onBwCheckComplete {0}", [JSON.stringify(e.info)]);
 			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage(type + " BWCheck complete {0}", [JSON.stringify(e.info)]));
@@ -156,7 +156,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			deInitCheckListeners(check);
 			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage(type + " TEST COMPLETE ========================", []));
 			
-			if (check.type == BWCheckType.CLIENT_SERVER) 
+			if (check.type == CheckType.CLIENT_SERVER) 
 			{
 				logger.info("client server complete");
 				doDownloadCheck();
@@ -177,8 +177,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		
 		private function onBwCheckStatus(e:BandwidthDetectEvent):void 
 		{
-			var check:IConnectionCheck = e.target as IConnectionCheck;
-			var type:String = (check.type == BWCheckType.CLIENT_SERVER)?"UPLOAD":"DOWNLOAD";
+			var check:IDetection = e.target as IDetection;
+			var type:String = (check.type == CheckType.CLIENT_SERVER)?"UPLOAD":"DOWNLOAD";
 			
 			logger.info("onBwCheckStatus {0}", [JSON.stringify(e.info)]);
 			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage(type + " BWCheck status {0}", [JSON.stringify(e.info)]));
@@ -215,7 +215,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			for (var i:uint = 0; i < checks.length; i++)
 			{
 				var index:uint = i;
-				var check:IConnectionCheck = checks[index] as IConnectionCheck;
+				var check:IDetection = checks[index] as IDetection;
 				
 				checks.splice(index, 1);
 				i--;

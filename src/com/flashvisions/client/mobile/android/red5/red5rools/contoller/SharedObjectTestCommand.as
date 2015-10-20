@@ -17,10 +17,10 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 	import flash.net.Responder;
 	import flash.net.SharedObject;
 	import flash.utils.getTimer;
-	import org.red5.flash.bwcheck.BWCheckType;
+	import org.red5.flash.bwcheck.CheckType;
 	import org.red5.flash.bwcheck.ClientServerBandwidth;
 	import org.red5.flash.bwcheck.events.BandwidthDetectEvent;
-	import org.red5.flash.bwcheck.interfaces.IConnectionCheck;
+	import org.red5.flash.bwcheck.interfaces.IDetection;
 	import org.red5.flash.bwcheck.ServerClientBandwidth;
 	
 	import org.puremvc.as3.interfaces.ICommand;

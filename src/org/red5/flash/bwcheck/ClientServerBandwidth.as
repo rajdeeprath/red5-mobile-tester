@@ -3,9 +3,9 @@ package org.red5.flash.bwcheck
 	
 	import flash.net.Responder;
 	
-	import org.red5.flash.bwcheck.interfaces.IConnectionCheck;
+	import org.red5.flash.bwcheck.interfaces.IDetection;
 	
-	public class ClientServerBandwidth extends BandwidthDetection implements IConnectionCheck
+	public class ClientServerBandwidth extends BandwidthDetection implements IDetection
 	{
 		private static const TYPE:uint = 1;
 		
