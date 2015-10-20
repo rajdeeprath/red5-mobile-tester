@@ -41,7 +41,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 		import org.as3commons.logging.setup.SimpleTargetSetup;
 	}
 	
-	dynamic public class SharedObjectTestCommand extends SimpleCommand implements ICommand
+	public dynamic class SharedObjectTestCommand extends SimpleCommand implements ICommand
 	{
 		CONFIG::LOGGING
 		{
@@ -77,7 +77,11 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage("Initializing SharedObject {0} for {1}", [soName, connection.url]));
 			initSharedObject(connection);
 			
-			this[handler] = receiveMessage;
+			
+			this[handler] = function(message:String):void {
+			logger.info("receiving data {0} on method {1}", [message, handler]); 
+			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage("SharedObject Data Received {0} for {1}", [message, soName]));
+			}
 		}
 		
 		
@@ -90,15 +94,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			
 			so.client = this;
 			so.connect(connection.netconnection);
-		}
-		
-		
-		
-		
-		public function receiveMessage(message:String):void
-		{
-			logger.info("receiving data {0} on method {1}", [message, handler]); 
-			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage("SharedObject Data Received {0} for {1}", [message, soName]));
 		}
 		
 		

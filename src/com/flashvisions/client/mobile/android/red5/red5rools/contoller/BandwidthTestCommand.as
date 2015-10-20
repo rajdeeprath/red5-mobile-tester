@@ -154,13 +154,20 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage(type + " BWCheck complete {0}", [JSON.stringify(e.info)]));
 			
 			deInitCheckListeners(check);
+			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage(type + "=================================================", []));
 			
-			if (check.type == BWCheckType.CLIENT_SERVER){
-			doDownloadCheck();
-			}else{
-			logger.info("All complete");
-			cleanUpUsedChecks();
-			facade.sendNotification(ApplicationFacade.TEST_COMPLETE);
+			if (check.type == BWCheckType.CLIENT_SERVER) 
+			{
+				logger.info("client server complete");
+				doDownloadCheck();
+			}
+			else
+			{
+				logger.info("server client complete");
+				
+				cleanUpUsedChecks();
+				facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage("TEST COMPLETE", []));
+				facade.sendNotification(ApplicationFacade.TEST_COMPLETE);
 			}
 		}
 		

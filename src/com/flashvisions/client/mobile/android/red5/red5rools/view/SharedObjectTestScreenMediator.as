@@ -127,6 +127,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 				
 				_component.btnGetSo.isEnabled = false;
 				_component.btnSendText.isEnabled = false;
+				_component.txtSoMethod.isEditable = true;
 				_component.btnConnect.label = "CONNECT";
 				break;
 				
@@ -144,6 +145,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 				
 				case ApplicationFacade.CONNECTION_LOST:
 				_connection = notification.getBody() as SmartConnection;
+				_component.btnGetSo.isEnabled = false;
+				_component.btnSendText.isEnabled = false;
+				_component.txtSoMethod.isEditable = true;
 				break;
 				
 				
@@ -158,6 +162,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 				_so = notification.getBody() as SharedObject;
 				_component.btnGetSo.isEnabled = false;
 				_component.btnSendText.isEnabled = true;
+				_component.txtSoMethod.isEditable = false;
 				break;
 				
 				
