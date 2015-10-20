@@ -5,6 +5,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 	import com.flashvisions.client.mobile.android.red5.red5rools.view.SharedObjectTestScreenMediator;
 	import feathers.controls.Button;
 	import feathers.controls.IScreen;
+	import feathers.controls.Label;
 	import feathers.controls.LayoutGroup;
 	import feathers.controls.PanelScreen;
 	import feathers.controls.ScrollText;
@@ -41,19 +42,24 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			private static const logger:ILogger = getLogger(SharedObjectTestScreen);
 		}
 		
-		private var btnConnect:ToggleButton;
+		public var btnConnect:ToggleButton;
 		
-		private var btnGetSo:Button;
-		private var txtSoName:TextInput;
+		public var btnGetSo:Button;
+		public var txtSoName:TextInput;
 		
-		private var btnSendText:Button;
-		private var txtSoData:TextInput;
+		public var btnSendText:Button;
+		public var txtSoMethod:TextInput;
+		public var txtSoData:TextInput;
+		public var lblSoData:Label;
+		public var lblSoMethod:Label;
 		
-		private var txtOutput:ScrollText;
+		public var txtOutput:ScrollText;
 		
 		private var containerGroup1:LayoutGroup;
-		private var containerGroup2:LayoutGroup
-		
+		private var containerGroup2:LayoutGroup;
+		private var containerGroup21:LayoutGroup;
+		private var containerGroup211:LayoutGroup;
+		private var containerGroup212:LayoutGroup;
 		
 		public function SharedObjectTestScreen() 
 		{
@@ -137,8 +143,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 				containerGroup1 = new LayoutGroup();
 				containerGroup1.layout = soConnectorlayout;
 				containerGroup1.layoutData = rowLayoutData;
-				containerGroup1.height = 50;
 				addChild(containerGroup1);
+				
 				
 				
 				txtSoName = new TextInput();
@@ -172,20 +178,61 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 				addChild(containerGroup2);
 				
 				
+				var containerGroup21Layout:HorizontalLayout = new HorizontalLayout();
+				containerGroup21Layout.gap = 10;
+				
+				containerGroup21 = new LayoutGroup();
+				containerGroup21.layout = containerGroup21Layout;
+				containerGroup21.layoutData = innerRowLayoutData;
+				containerGroup2.addChild(containerGroup21);
+				
+				
+				var containerGroup211LayoutData:HorizontalLayoutData = new HorizontalLayoutData();
+				containerGroup211LayoutData.percentWidth = 30;
+
+				var containerGroup211Layout:VerticalLayout = new VerticalLayout();
+				containerGroup211 = new LayoutGroup();
+				containerGroup211.layout = containerGroup211Layout;
+				containerGroup211.layoutData = containerGroup211LayoutData;
+				containerGroup21.addChild(containerGroup211);
+				
+				
+				
+				
+				lblSoMethod = new Label();
+				lblSoMethod.text = "METHOD";
+				lblSoMethod.layoutData = innerRowLayoutData;
+				containerGroup211.addChild(lblSoMethod);
+				
+				
+				txtSoMethod = new TextInput();
+				txtSoMethod.prompt = "";
+				txtSoMethod.layoutData = innerRowLayoutData;
+				containerGroup211.addChild(txtSoMethod);
+				
+				
+				
+				var containerGroup212LayoutData:HorizontalLayoutData = new HorizontalLayoutData();
+				containerGroup212LayoutData.percentWidth = 70;
+				
+				
+				var containerGroup212Layout:VerticalLayout = new VerticalLayout();
+				containerGroup212 = new LayoutGroup();
+				containerGroup212.layout = containerGroup212Layout;
+				containerGroup212.layoutData = containerGroup212LayoutData;
+				containerGroup21.addChild(containerGroup212);
+				
+				
+				lblSoData = new Label();
+				lblSoData.text = "DATA";
+				lblSoData.layoutData = innerRowLayoutData;
+				containerGroup212.addChild(lblSoData);
+				
 				
 				txtSoData = new TextInput();
-				txtSoData.prompt = "TEXT TO SEND";
+				txtSoData.prompt = "";
 				txtSoData.layoutData = innerRowLayoutData;
-				txtSoData.textEditorFactory = function():ITextEditor
-				{
-					var editor:StageTextTextEditor = new StageTextTextEditor();
-					editor.fontFamily = "Helvetica";
-					editor.fontSize = 14;
-					editor.multiline = true;
-					editor.color = 0xffffff;
-					return editor;
-				}
-				containerGroup2.addChild(txtSoData);
+				containerGroup212.addChild(txtSoData);
 				
 				
 				
@@ -226,7 +273,17 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			removeChild(containerGroup1);
 			
 			
-			containerGroup2.removeChild(txtSoData);
+			containerGroup211.removeChild(lblSoMethod)
+			containerGroup211.removeChild(txtSoMethod)
+			containerGroup21.removeChild(containerGroup211);
+			
+			
+			containerGroup212.removeChild(lblSoData)
+			containerGroup212.removeChild(txtSoData)
+			containerGroup21.removeChild(containerGroup212);
+			
+			
+			containerGroup2.removeChild(containerGroup21);
 			containerGroup2.removeChild(btnSendText);
 			removeChild(containerGroup2);
 			

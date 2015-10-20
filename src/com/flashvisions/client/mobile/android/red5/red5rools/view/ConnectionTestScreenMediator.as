@@ -147,6 +147,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view
 				case ApplicationFacade.LOG:
 				_component.txtOutput.text += notification.getBody() as String;
 				_component.txtOutput.text += "\n\n";
+				
+				_component.txtOutput.validate();
+				_component.txtOutput.scrollToPosition(0, _component.txtOutput.maxVerticalScrollPosition, 0.2);
 				break;
 			}
 		}

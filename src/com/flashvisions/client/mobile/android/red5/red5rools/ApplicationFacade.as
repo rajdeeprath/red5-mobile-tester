@@ -14,9 +14,12 @@ package com.flashvisions.client.mobile.android.red5.red5rools
 		public static const CONNECTION_TEST:String  		= "CONNECTION_TEST";
 		public static const PORT_TEST:String  				= "PORT_TEST";
 		public static const BANDWIDTH_TEST:String  			= "BANDWIDTH_TEST";
+		public static const SHAREDOBJECT_TEST:String  		= "SHAREDOBJECT_TEST";
 		
 		public static const TEST_START:String  				= "TEST_START";
 		public static const TEST_COMPLETE:String  			= "TEST_COMPLETE";
+		
+		public static const SHARED_OBJECT:String  			= "SHARED_OBJECT";
 		
 		public static const LOG:String  					= "LOG";
 		
@@ -60,6 +63,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools
 			this.registerCommand(CONNECTION_TEST, ConnectionCommand);
 			this.registerCommand(PORT_TEST, PortTestCommand);
 			this.registerCommand(BANDWIDTH_TEST, BandwidthTestCommand);
+			this.registerCommand(SHAREDOBJECT_TEST, SharedObjectTestCommand);
 		}
 		
 		
