@@ -58,6 +58,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 		public var btnRemotingTest:Button;
 		public var btnVideoTest:Button;
 		
+		private var imageLayoutContainer:LayoutGroup;
+		
 		
 		public function HomeScreen() 
 		{
@@ -115,11 +117,18 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			
 			
 			
-			//add children		
+			//add children	
+			
+			var imageLayout:VerticalLayout = new VerticalLayout();
+			imageLayout.paddingBottom = 20;
+			
+			imageLayoutContainer = new LayoutGroup();
+			imageLayoutContainer.layout = imageLayout;
+			addChild(imageLayoutContainer);
 			
 			bmp = new Red5Logo();
 			image = new Image(Texture.fromBitmap(bmp));
-			addChild(image);
+			imageLayoutContainer.addChild(image);
 			
 			
 			var layout1:HorizontalLayout = new HorizontalLayout();
@@ -210,6 +219,27 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 				NativeApplication.nativeApplication.exit();
 			}
 			
+		}
+		
+		
+		override public function dispose():void 
+		{
+			removeChild(btnConnectionTest);
+			
+			removeChild(btnPortTest);
+			
+			removeChild(btnBandwidthTest);
+			
+			removeChild(btnSoTest);
+			
+			removeChild(btnRemotingTest);
+			
+			removeChild(btnVideoTest);
+			
+			imageLayoutContainer.removeChild(image);
+			removeChild(imageLayoutContainer);
+			
+			super.dispose();
 		}
 
 		

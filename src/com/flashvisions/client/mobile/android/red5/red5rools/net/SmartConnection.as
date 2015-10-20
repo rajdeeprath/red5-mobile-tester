@@ -119,14 +119,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 			try
 			{
 				this.close();
-								
 				_deInitHandlers();
-				
-				var info:ConnectionInfo = new ConnectionInfo();
-				info.status = NetConnectionCodes.CONNECT_DISPOSE;
-				info.endpoint = url;
-				info.timestamp = parseInt(new Date().valueOf().toString());
-				dispatchEvent(new ConnectionEvent(ConnectionEvent.CONNECTION_DISPOSE, info));
 			}
 			catch (e:Error) 
 			{
@@ -134,6 +127,12 @@ package com.flashvisions.client.mobile.android.red5.red5rools.net
 			}
 			finally 
 			{
+				var info:ConnectionInfo = new ConnectionInfo();
+				info.status = NetConnectionCodes.CONNECT_DISPOSE;
+				info.endpoint = url;
+				info.timestamp = parseInt(new Date().valueOf().toString());
+				dispatchEvent(new ConnectionEvent(ConnectionEvent.CONNECTION_DISPOSE, info));
+				
 				_nc = null;	
 			}
 		}

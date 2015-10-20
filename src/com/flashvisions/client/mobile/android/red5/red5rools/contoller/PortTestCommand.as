@@ -55,7 +55,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			var connection:SmartConnection = notification.getBody() as SmartConnection;
 			var dataProxy:DataProxy = facade.retrieveProxy(DataProxy.NAME) as DataProxy;
 			
-			
 			facade.sendNotification(ApplicationFacade.TEST_START, connection);			
 			initListeners(connection);
 			
