@@ -154,7 +154,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.contoller
 			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage(type + " BWCheck complete {0}", [JSON.stringify(e.info)]));
 			
 			deInitCheckListeners(check);
-			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage(type + "=================================================", []));
+			facade.sendNotification(ApplicationFacade.LOG, messsageLogger.formatMessage(type + " TEST COMPLETE ========================", []));
 			
 			if (check.type == BWCheckType.CLIENT_SERVER) 
 			{

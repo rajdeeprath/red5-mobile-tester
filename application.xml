@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <application xmlns="http://ns.adobe.com/air/application/16.0">
 	
-	<id>air.Red5TesterTool</id>
+	<id>air.Red5Tools</id>
 	<versionNumber>0.1</versionNumber>
 	<supportedProfiles>mobileDevice</supportedProfiles>
 	<filename>Red5TesterTool</filename>
 	
-	<name>Red5 Tester Tool</name>
+	<name>Red5 Tools</name>
 	<description></description>
 	<copyright></copyright>
 	
@@ -16,7 +16,8 @@
 			<manifest android:installLocation="auto">
 			  <uses-sdk android:minSdkVersion="8"/>
 				<uses-permission android:name="android.permission.INTERNET"/>
-				<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+				<uses-permission android:name="android.permission.WRITE_EXTER1
+				NAL_STORAGE" />
 				<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 				<uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch"/>
 			</manifest>
