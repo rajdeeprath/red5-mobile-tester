@@ -19,11 +19,11 @@ Note: Although the application is meant to be used with Red5 media server, you c
 
 # Development environment
 
-FlashDevelop
-Flex SDK >= 4.6.0
-AIR 19 SDK
-Starling framework
-Feathers UI components
+* FlashDevelop + Pure MVC framework
+* Flex SDK >= 4.6.0
+* AIR 19 SDK
+* Starling framework
+* Feathers UI components
 
 
 # Screenshots
