@@ -7,7 +7,10 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 	import feathers.controls.IScreen;
 	import feathers.controls.List;
 	import feathers.controls.PanelScreen;
+	import feathers.controls.ScrollPolicy;
 	import feathers.data.ListCollection;
+	import feathers.layout.HorizontalAlign;
+	import feathers.layout.VerticalAlign;
 	import feathers.layout.VerticalLayout;
 	import feathers.layout.VerticalLayoutData;
 	import starling.events.Event;
@@ -93,10 +96,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.gap = 40;
-			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER;
-			layout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
+			layout.horizontalAlign = HorizontalAlign.CENTER;
+			layout.verticalAlign = VerticalAlign.MIDDLE;
 			this.layout = layout;
-			
 			
 			
 			var masterLayoutData:VerticalLayoutData = new VerticalLayoutData();
@@ -114,9 +116,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			
 			list = new List();
 			list.layoutData = masterLayoutData;
-			list.horizontalScrollPolicy = List.SCROLL_POLICY_OFF;
+			list.horizontalScrollPolicy = ScrollPolicy.OFF;
 			list.padding = 20;
-			
 			
 			addChild(list);
 		}

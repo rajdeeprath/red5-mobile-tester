@@ -8,7 +8,7 @@
     <movie fps="30" />
     <movie width="480" />
     <movie height="762" />
-    <movie version="17" />
+    <movie version="26" />
     <movie minorVersion="0" />
     <movie platform="AIR Mobile" />
     <movie background="#FFFFFF" />
@@ -16,8 +16,7 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="C:\Actionscript 3.0" />
-    <class path="..\..\Starling-Framework\starling\src" />
+    <class path="J:\Actionscript 3.0" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -54,9 +53,10 @@
   </includeLibraries>
   <!-- SWC Libraries -->
   <libraryPaths>
-    <element path="libs\feathers.swc" />
     <element path="libs\MetalWorksMobileTheme.swc" />
     <element path="libs\as3commons-logging-2.7.swc" />
+    <element path="libs\starling.swc" />
+    <element path="libs\feathers.swc" />
   </libraryPaths>
   <!-- External Libraries -->
   <externalLibraryPaths>

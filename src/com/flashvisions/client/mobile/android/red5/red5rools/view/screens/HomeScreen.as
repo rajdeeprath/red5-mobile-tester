@@ -8,8 +8,10 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 	import feathers.controls.LayoutGroup;
 	import feathers.controls.PanelScreen;
 	import feathers.controls.TextInput;
+	import feathers.layout.HorizontalAlign;
 	import feathers.layout.HorizontalLayout;
 	import feathers.layout.HorizontalLayoutData;
+	import feathers.layout.VerticalAlign;
 	import feathers.layout.VerticalLayout;
 	import feathers.layout.VerticalLayoutData;
 	import flash.desktop.NativeApplication;
@@ -111,10 +113,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.gap = 10;
-			layout.horizontalAlign = HorizontalLayout.HORIZONTAL_ALIGN_CENTER;
-			layout.verticalAlign = HorizontalLayout.VERTICAL_ALIGN_MIDDLE;
+			layout.horizontalAlign = HorizontalAlign.CENTER;
+			layout.verticalAlign = VerticalAlign.MIDDLE;
 			this.layout = layout;
-			
 			
 			
 			//add children	

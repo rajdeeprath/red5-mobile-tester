@@ -60,7 +60,7 @@ package
 			// Entry point	
 			logger.info("Initializing starling");
 			
-			starling = new Starling(Application, stage);
+			starling = new Starling(Application, stage, null, null, "auto", "auto");
 			stage.addEventListener(Event.RESIZE, stageResized);
 			starling.start();		
 		}

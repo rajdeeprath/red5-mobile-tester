@@ -11,6 +11,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 	import feathers.controls.TextInput;
 	import feathers.controls.ToggleButton;
 	import feathers.core.ITextEditor;
+	import feathers.layout.HorizontalAlign;
+	import feathers.layout.VerticalAlign;
 	import feathers.layout.VerticalLayout;
 	import feathers.layout.VerticalLayoutData;
 	import flash.text.TextFormat;
@@ -92,11 +94,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.gap = 40;
-			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER;
-			layout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
+			layout.horizontalAlign = HorizontalAlign.CENTER;
+			layout.verticalAlign = VerticalAlign.MIDDLE;
 			this.layout = layout;
-
-			
 			
 			var masterLayoutData:VerticalLayoutData = new VerticalLayoutData();
 			masterLayoutData.percentHeight = 90;

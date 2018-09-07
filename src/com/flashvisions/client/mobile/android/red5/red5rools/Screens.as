@@ -15,6 +15,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools
 		public static const BANDWIDTH_TEST:String = "BandwidthTestScreen";
 		
 		public static const SO_TEST:String = "SharedObjectTestScreen";
+		
+		public static const VID_TEST:String = "VideoTestScreen";
 	}
 
 }

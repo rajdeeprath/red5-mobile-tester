@@ -13,10 +13,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 	import feathers.controls.TextInput;
 	import feathers.controls.ToggleButton;
 	import feathers.core.ITextEditor;
-	import feathers.layout.HorizontalAlign;
 	import feathers.layout.HorizontalLayout;
 	import feathers.layout.HorizontalLayoutData;
-	import feathers.layout.VerticalAlign;
 	import feathers.layout.VerticalLayout;
 	import feathers.layout.VerticalLayoutData;
 	import flash.text.TextFormat;
@@ -37,7 +35,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 	 * ...
 	 * @author ...
 	 */
-	public class SharedObjectTestScreen extends Red5TestScreen implements IScreen
+	public class VideoTestScreen extends Red5TestScreen implements IScreen
 	{
 		CONFIG::LOGGING
 		{
@@ -58,12 +56,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 		public var txtOutput:ScrollText;
 		
 		private var containerGroup1:LayoutGroup;
-		private var containerGroup2:LayoutGroup;
-		private var containerGroup21:LayoutGroup;
-		private var containerGroup211:LayoutGroup;
-		private var containerGroup212:LayoutGroup;
 		
-		public function SharedObjectTestScreen() 
+		public function VideoTestScreen() 
 		{
 			super();
 			
@@ -111,8 +105,8 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			// set layout
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.gap = 40;
-			layout.horizontalAlign = HorizontalAlign.CENTER;
-			layout.verticalAlign = VerticalAlign.MIDDLE;
+			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER;
+			layout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
 			this.layout = layout;
 			
 			
@@ -138,8 +132,9 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 				
 				var soConnectorlayout:HorizontalLayout = new HorizontalLayout();
 				soConnectorlayout.gap = 10;
-				soConnectorlayout.horizontalAlign = HorizontalAlign.CENTER;
-				soConnectorlayout.verticalAlign = VerticalAlign.MIDDLE;
+				soConnectorlayout.horizontalAlign = HorizontalLayout.HORIZONTAL_ALIGN_CENTER;
+				soConnectorlayout.verticalAlign = HorizontalLayout.VERTICAL_ALIGN_MIDDLE;
+				
 				
 				containerGroup1 = new LayoutGroup();
 				containerGroup1.layout = soConnectorlayout;
@@ -160,89 +155,7 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 				containerGroup1.addChild(btnGetSo);
 			}
 			
-			
-			
-			{
-				var innerRowLayoutData:VerticalLayoutData = new VerticalLayoutData();
-				innerRowLayoutData.percentWidth = 100;
-				
-			
-				var soTranmitlayout:VerticalLayout = new VerticalLayout();
-				soTranmitlayout.gap = 10;
-				soTranmitlayout.horizontalAlign = HorizontalAlign.CENTER;
-				soTranmitlayout.verticalAlign = VerticalAlign.MIDDLE;
-				
-				containerGroup2 = new LayoutGroup();
-				containerGroup2.layout = soTranmitlayout;
-				containerGroup2.layoutData = rowLayoutData;
-				addChild(containerGroup2);
-				
-				
-				var containerGroup21Layout:HorizontalLayout = new HorizontalLayout();
-				containerGroup21Layout.gap = 10;
-				
-				containerGroup21 = new LayoutGroup();
-				containerGroup21.layout = containerGroup21Layout;
-				containerGroup21.layoutData = innerRowLayoutData;
-				containerGroup2.addChild(containerGroup21);
-				
-				
-				var containerGroup211LayoutData:HorizontalLayoutData = new HorizontalLayoutData();
-				containerGroup211LayoutData.percentWidth = 30;
-
-				var containerGroup211Layout:VerticalLayout = new VerticalLayout();
-				containerGroup211 = new LayoutGroup();
-				containerGroup211.layout = containerGroup211Layout;
-				containerGroup211.layoutData = containerGroup211LayoutData;
-				containerGroup21.addChild(containerGroup211);
-				
-				
-				
-				
-				lblSoMethod = new Label();
-				lblSoMethod.text = "METHOD";
-				lblSoMethod.layoutData = innerRowLayoutData;
-				containerGroup211.addChild(lblSoMethod);
-				
-				
-				txtSoMethod = new TextInput();
-				txtSoMethod.prompt = "";
-				txtSoMethod.layoutData = innerRowLayoutData;
-				containerGroup211.addChild(txtSoMethod);
-				
-				
-				
-				var containerGroup212LayoutData:HorizontalLayoutData = new HorizontalLayoutData();
-				containerGroup212LayoutData.percentWidth = 70;
-				
-				
-				var containerGroup212Layout:VerticalLayout = new VerticalLayout();
-				containerGroup212 = new LayoutGroup();
-				containerGroup212.layout = containerGroup212Layout;
-				containerGroup212.layoutData = containerGroup212LayoutData;
-				containerGroup21.addChild(containerGroup212);
-				
-				
-				lblSoData = new Label();
-				lblSoData.text = "DATA";
-				lblSoData.layoutData = innerRowLayoutData;
-				containerGroup212.addChild(lblSoData);
-				
-				
-				txtSoData = new TextInput();
-				txtSoData.prompt = "";
-				txtSoData.layoutData = innerRowLayoutData;
-				containerGroup212.addChild(txtSoData);
-				
-				
-				
-				btnSendText = new Button();
-				btnSendText.label = "SEND DATA";
-				btnSendText.layoutData = innerRowLayoutData;
-				containerGroup2.addChild(btnSendText);				
-			}
-			
-			
+		
 			
 			var fillLayoutData:VerticalLayoutData = new VerticalLayoutData();
 			fillLayoutData.percentHeight = 90;
@@ -271,21 +184,6 @@ package com.flashvisions.client.mobile.android.red5.red5rools.view.screens
 			containerGroup1.removeChild(txtSoName);
 			containerGroup1.removeChild(btnGetSo);
 			removeChild(containerGroup1);
-			
-			
-			containerGroup211.removeChild(lblSoMethod)
-			containerGroup211.removeChild(txtSoMethod)
-			containerGroup21.removeChild(containerGroup211);
-			
-			
-			containerGroup212.removeChild(lblSoData)
-			containerGroup212.removeChild(txtSoData)
-			containerGroup21.removeChild(containerGroup212);
-			
-			
-			containerGroup2.removeChild(containerGroup21);
-			containerGroup2.removeChild(btnSendText);
-			removeChild(containerGroup2);
 			
 			
 			super.dispose();
